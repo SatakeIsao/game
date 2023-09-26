@@ -15,6 +15,7 @@ public:
 	
 	Player* m_player; //プレイヤー。
 	Vector3 m_toCameraPos; //注視点から視点に向かうベクトル
+	Vector3 target;
 	SpringCamera m_springCamera;	//ばねカメラ。
 };
 
