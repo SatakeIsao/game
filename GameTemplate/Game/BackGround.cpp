@@ -4,7 +4,7 @@
 BackGround::BackGround()
 {
 	//モデルを読み込む。
-	m_modelRender.Init("Assets/modelData/meiro6.tkm");
+	m_modelRender.Init("Assets/modelData/yakata.tkm");
 	//静的物理オブジェクトを作成
 	m_physicsStaticObject.CreateFromModel(m_modelRender.GetModel(), m_modelRender.GetModel().GetWorldMatrix());
 }
