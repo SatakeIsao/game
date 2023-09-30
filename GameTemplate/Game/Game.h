@@ -12,9 +12,11 @@ public:
 	Game();
 	~Game();
 
-	
+	bool Start();
 
 	//更新処理
+	
+
 	void Update();
 
 	void Render(RenderContext& rc);
@@ -28,7 +30,7 @@ private:
 	Vector3 m_position;
 	SoundSource* gameBGM; //ゲーム中のBGM。
 
-	//FontRender m_fontRender;
-	//float m_position = 0.0f;
+	FontRender m_fontRender;
+	float m_timer = 0.0f;
 };
 
