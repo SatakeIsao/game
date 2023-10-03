@@ -2,6 +2,7 @@
 #include "Level3DRender/LevelRender.h"
 
 class Player;
+class Bannin;
 class GameCamera;
 class BackGround;
 class Botan;
@@ -23,6 +24,7 @@ public:
 
 private:
 	Player* player = nullptr;
+	Bannin* bannin = nullptr;
 	GameCamera* m_GameCamera;
 	BackGround* background = nullptr;
 	Botan* botan = nullptr;

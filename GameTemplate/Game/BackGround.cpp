@@ -11,7 +11,7 @@ BackGround::BackGround()
 
 BackGround::~BackGround()
 {
-
+	
 }
 
 void BackGround::Render(RenderContext& rc)

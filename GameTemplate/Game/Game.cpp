@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "Player.h"
+#include "Bannin.h"
 #include "BackGround.h"
 #include "GameCamera.h"
 #include "Botan.h"
@@ -19,11 +20,16 @@ Game::Game()
 	player = NewGO<Player>(0, "player");
 	player->m_position = { -600.0f,0.0f,0.0f };
 
+	//番人のオブジェクトを作る。
+	bannin = NewGO<Bannin>(0, "bannin");
+	bannin->m_position = { 500.0f,0.0f,-100.0f };
+
 	//ゲームカメラのオブジェクトを作る。
 	m_GameCamera = NewGO<GameCamera>(0, "gamecamera");
 
 	//背景のオブジェクトを作る。
-	background = NewGO<BackGround>(0, "backGround");
+	//background = NewGO<BackGround>(0, "backGround");
+	
 	//background->m_position = { 0.0f,0.0f,0.0f };
 
 	//ボタンのオブジェクトを作る。
@@ -43,6 +49,8 @@ Game::~Game()
 {
 	//プレイヤーを削除する。
 	DeleteGO(player);
+	//番人を削除する。
+	DeleteGO(bannin);
 	//ゲームカメラを削除する。
 	DeleteGO(m_GameCamera);
 	//ゲーム中のBGMを削除する。
