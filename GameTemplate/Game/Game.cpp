@@ -21,14 +21,28 @@ Game::Game()
 	player->m_position = { -600.0f,0.0f,0.0f };
 
 	//番人のオブジェクトを作る。
-	bannin = NewGO<Bannin>(0, "bannin");
-	bannin->m_position = { 500.0f,0.0f,-100.0f };
+	//m_levelRender.Init("Assets/level3D/level.tkl",
+		//[&](LevelObjectData& objData)
+		//{
+			//if (objData.EqualObjectName(L"bannin") == true)
+			//{
+				//番人のオブジェクトを作る。
+				//bannin = NewGO<Bannin>(0, "bannin");
+				//座標を設定。
+				//bannin->SetPosition(objData.position);
+				//return true;
+			//}
+			//return true;
+		//});
+
+	//bannin = NewGO<Bannin>(0, "bannin");
+	//bannin->m_position = { 500.0f,0.0f,-100.0f };
 
 	//ゲームカメラのオブジェクトを作る。
 	m_GameCamera = NewGO<GameCamera>(0, "gamecamera");
 
 	//背景のオブジェクトを作る。
-	//background = NewGO<BackGround>(0, "backGround");
+	background = NewGO<BackGround>(0, "backGround");
 	
 	//background->m_position = { 0.0f,0.0f,0.0f };
 

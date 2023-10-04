@@ -20,7 +20,7 @@ void Bannin::Update()
 
 void Bannin::Move()
 {
-	m_modelRender.SetPosition(m_position); //座標を設定。
+	//m_modelRender.SetPosition(m_position); //座標を設定。
 }
 
 void Bannin::PlayAnimation()

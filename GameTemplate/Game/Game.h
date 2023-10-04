@@ -1,6 +1,7 @@
 #pragma once
 #include "Level3DRender/LevelRender.h"
 
+
 class Player;
 class Bannin;
 class GameCamera;
@@ -22,7 +23,13 @@ public:
 
 	void Render(RenderContext& rc);
 
+	//void SetPosition(const Vector3& position)
+	//{
+
+	//}
+
 private:
+	LevelRender m_levelRender;
 	Player* player = nullptr;
 	Bannin* bannin = nullptr;
 	GameCamera* m_GameCamera;
