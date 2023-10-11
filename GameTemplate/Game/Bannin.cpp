@@ -23,7 +23,7 @@ bool Bannin::Start()
 	
 	//モデルを読み込む。
 	m_modelRender.Init("Assets/modelData/Kemono.tks.tkm");
-	//m_modelRender.SetScale(0.3f, 0.3f, 0.3f);
+	m_modelRender.SetScale(0.03f, 0.03f, 0.03f);
 
 	//アニメーションイベント用の関数を設定する。
 	m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
@@ -33,7 +33,7 @@ bool Bannin::Start()
 	//座標を設定する。
 
 	//大きさを設定する。
-	m_modelRender.SetScale(m_scale);
+	//m_modelRender.SetScale(m_scale);
 
 
 	//キャラクターコントローラーを初期化。
@@ -138,7 +138,29 @@ const bool Bannin::SearchPlayer() const
 
 void Bannin::PlayAnimation()
 {
-
+	m_modelRender.SetAnimationSpeed(1.0f);
+	switch (m_banninState)
+	{
+		//待機ステートの時。
+	case enBanninState_Idle:
+		//待機アニメーションを再生。
+		m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
+		break;
+		//追跡ステートの時。
+	case enBanninState_Chase:
+		//追跡アニメーションを再生。
+		m_modelRender.SetAnimationSpeed(1.2f);
+		//走りアニメーションを再生。
+		m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
+		break;
+		//吠えるステートの時。
+	case enBanninState_Bark:
+		//吠えるアニメーションを再生。
+		m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
+		break;
+	default:
+		break;
+	}
 }
 
 void Bannin::MakeBarkCollision()
@@ -204,6 +226,8 @@ void Bannin::ManageState()
 		break;
 	}
 }
+
+
 
 void Bannin::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
 {

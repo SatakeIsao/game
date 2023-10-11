@@ -1,5 +1,5 @@
 #pragma once
-class Bannin;
+class Player;
 
 class Bannin : public IGameObject
 {
