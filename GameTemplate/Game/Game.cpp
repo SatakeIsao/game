@@ -20,24 +20,27 @@ Game::Game()
 	player = NewGO<Player>(0, "player");
 	player->m_position = { -600.0f,0.0f,0.0f };
 
-	////番人のオブジェクトを作る。
-	//m_levelRender.Init("Assets/level3D/level.tkl",
+	//番人のオブジェクトを作る。
+	//m_levelRender.Init("Assets/modelData/level.tkl",
 	//	[&](LevelObjectData& objData)
 	//	{
-	//		if (objData.EqualObjectName(L"bannin") == true)
+	//		if (objData.EqualObjectName(L"Mutant") == true)
 	//		{
 	//			//番人のオブジェクトを作る。
 	//			bannin = NewGO<Bannin>(0, "bannin");
 	//			//座標を設定。
 	//			bannin->SetPosition(objData.position);
-
+	//			//回転を設定。
+	//			bannin->SetRotation(objData.rotation);
+	//			//大きさを設定。
+	//			bannin->SetScale(objData.scale);
 	//			return true;
 	//		}
 	//		return true;
 	//	});
 
-	//bannin = NewGO<Bannin>(0, "bannin");
-	//bannin->= { 500.0f,0.0f,-100.0f };
+	bannin = NewGO<Bannin>(0, "bannin");
+	bannin->m_position = { -600.0f,0.0f,0.0f };
 
 	//ゲームカメラのオブジェクトを作る。
 	m_GameCamera = NewGO<GameCamera>(0, "gamecamera");

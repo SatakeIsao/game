@@ -14,16 +14,16 @@ Bannin::Bannin()
 bool Bannin::Start()
 {
 	//アニメーションを読み込む。
-	m_animationClips[enAnimationClip_Idle].Load("Assets/animData/bannin/idle.tka");
+	m_animationClips[enAnimationClip_Idle].Load("Assets/modelData/Mutant.fbm/idle.tka");
 	m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-	m_animationClips[enAnimationClip_Run].Load("Assets/animData/bannin/run.tka");
+	m_animationClips[enAnimationClip_Run].Load("Assets/modelData/Mutant.fbm/run.tka");
 	m_animationClips[enAnimationClip_Run].SetLoopFlag(true);
-	m_animationClips[enAnimationClip_Bark].Load("Assets/animData/bannin/bark.tka");
+	m_animationClips[enAnimationClip_Bark].Load("Assets/modelData/Mutant.fbm/bark.tka");
 	m_animationClips[enAnimationClip_Bark].SetLoopFlag(false);
 	
 	//モデルを読み込む。
-	m_modelRender.Init("Assets/modelData/Kemono.tks.tkm");
-	m_modelRender.SetScale(0.03f, 0.03f, 0.03f);
+	m_modelRender.Init("Assets/modelData/Mutant.fbm/Bannin.tkm",m_animationClips,enAnimationClip_Num);
+	//m_modelRender.SetScale(0.03f, 0.03f, 0.03f);
 
 	//アニメーションイベント用の関数を設定する。
 	m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
@@ -56,6 +56,8 @@ void Bannin::Update()
 	Chase();
 	//当たり判定。
 	Collision();
+
+	m_modelRender.Update();
 }
 
 

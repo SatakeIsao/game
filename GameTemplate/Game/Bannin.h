@@ -26,6 +26,14 @@ public:
 	{
 		m_position = position;
 	}
+	void SetRotation(const Quaternion& rotation)
+	{
+		m_rotation = rotation;
+	}
+	void SetScale(const Vector3& scale)
+	{
+		m_scale = scale;
+	}
 
 	const Vector3& GetPosition() const
 	{
@@ -51,7 +59,6 @@ public:
 			m_banninState != enBanninState_Down &&
 			m_banninState != enBanninState_Clear;
 	}
-private:
 
 	//アニメーションイベント用の関数。
 	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName);
@@ -87,6 +94,7 @@ private:
 	ModelRender m_modelRender;
 	Vector3 m_position; //座標。
 	Vector3 m_scale = Vector3::One; //大きさ
+	Quaternion m_rotation; //回転。
 	CharacterController	m_charaCon; //キャラコン。
 	EnBanninState m_banninState = enBanninState_Idle;
 	bool m_isUnderBark = false; //吠えているのならtrue。

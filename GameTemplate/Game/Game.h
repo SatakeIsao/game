@@ -28,7 +28,8 @@ public:
 
 	//}
 
-private:
+//private:
+public:
 	LevelRender m_levelRender;
 	Player* player = nullptr;
 	Bannin* bannin = nullptr;
