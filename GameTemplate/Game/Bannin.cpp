@@ -23,6 +23,8 @@ bool Bannin::Start()
 	
 	//モデルを読み込む。
 	m_modelRender.Init("Assets/modelData/Mutant.fbm/Bannin.tkm",m_animationClips,enAnimationClip_Num);
+	//座標を設定する。
+	m_modelRender.SetPosition(m_position);
 	//m_modelRender.SetScale(0.03f, 0.03f, 0.03f);
 
 	//アニメーションイベント用の関数を設定する。
@@ -31,6 +33,7 @@ bool Bannin::Start()
 		});
 
 	//座標を設定する。
+	//m_modelRender.SetPosition(m_position);
 
 	//大きさを設定する。
 	//m_modelRender.SetScale(m_scale);
@@ -57,6 +60,7 @@ void Bannin::Update()
 	//当たり判定。
 	Collision();
 
+	//モデルの更新。
 	m_modelRender.Update();
 }
 
@@ -65,48 +69,48 @@ void Bannin::Update()
 void Bannin::Chase()
 {
 	//追跡ステートでないなら、追跡処理はしない。
-	if (m_banninState != enBanninState_Chase)
+	/*if (m_banninState != enBanninState_Chase)
 	{
 		return;
-	}
+	}*/
 }
 
 void Bannin::Collision()
 {
 	//被ダメージ、あるいはダウンステートの時には。
 	//当たり判定処理をしない。
-	if (m_banninState == enBanninState_ReceiveDamage || m_banninState == enBanninState_Down)
-	{
-		return;
-	}
+	//if (m_banninState == enBanninState_ReceiveDamage || m_banninState == enBanninState_Down)
+	//{
+	//	return;
+	//}
 
-	//番人の吠える用のコリジョン取得する。
-	const auto& collisions = g_collisionObjectManager->FindCollisionObjects("Bannin_balk");
-	//コリジョンの配列をfor文で回す。
-	for (auto collision : collisions)
-	{
-		//コリジョンとキャラコンが衝突したら。
-		if (collision->IsHit(m_charaCon))
-		{
-			//HPを1減らす
-			m_hp -= 1;
+	////番人の吠える用のコリジョン取得する。
+	//const auto& collisions = g_collisionObjectManager->FindCollisionObjects("Bannin_balk");
+	////コリジョンの配列をfor文で回す。
+	//for (auto collision : collisions)
+	//{
+	//	//コリジョンとキャラコンが衝突したら。
+	//	if (collision->IsHit(m_charaCon))
+	//	{
+	//		//HPを1減らす
+	//		m_hp -= 1;
 
-			//HPが0より上なら。
-			if (m_hp > 0)
-			{
-				//被ダメージステートに遷移する。
-				m_banninState - enBanninState_ReceiveDamage;
-			}
-			//HPが0なら。
-			else if (m_hp == 0)
-			{
-				//ダウンステートに遷移する。
-				m_banninState = enBanninState_Down;
-			}
+	//		//HPが0より上なら。
+	//		if (m_hp > 0)
+	//		{
+	//			//被ダメージステートに遷移する。
+	//			m_banninState - enBanninState_ReceiveDamage;
+	//		}
+	//		//HPが0なら。
+	//		else if (m_hp == 0)
+	//		{
+	//			//ダウンステートに遷移する。
+	//			m_banninState = enBanninState_Down;
+	//		}
 
-			//効果音を再生する。
-		}
-	}
+	//		//効果音を再生する。
+	//	}
+	//}
 }
 
 
@@ -119,50 +123,50 @@ void Bannin::Move()
 void Bannin::Bark()
 {
 	//吠えないなら処理しない。
-	if (m_banninState != enBanninState_Bark)
-	{
-		return;
-	}
+	//if (m_banninState != enBanninState_Bark)
+	//{
+	//	return;
+	//}
 
-	//吠えていれば。
-	if (m_isUnderBark == true)
-	{
-		//吠える用のコリジョンを作成する。
-		MakeBarkCollision();
-	}
+	////吠えていれば。
+	//if (m_isUnderBark == true)
+	//{
+	//	//吠える用のコリジョンを作成する。
+	//	MakeBarkCollision();
+	//}
 }
 
 
 const bool Bannin::SearchPlayer() const
 {
-	return false;
+	/*return false;*/
 }
 
 void Bannin::PlayAnimation()
 {
-	m_modelRender.SetAnimationSpeed(1.0f);
-	switch (m_banninState)
-	{
-		//待機ステートの時。
-	case enBanninState_Idle:
-		//待機アニメーションを再生。
-		m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
-		break;
-		//追跡ステートの時。
-	case enBanninState_Chase:
-		//追跡アニメーションを再生。
-		m_modelRender.SetAnimationSpeed(1.2f);
-		//走りアニメーションを再生。
-		m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
-		break;
-		//吠えるステートの時。
-	case enBanninState_Bark:
-		//吠えるアニメーションを再生。
-		m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
-		break;
-	default:
-		break;
-	}
+//	m_modelRender.SetAnimationSpeed(1.0f);
+//	switch (m_banninState)
+//	{
+//		//待機ステートの時。
+//	case enBanninState_Idle:
+//		//待機アニメーションを再生。
+//		m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
+//		break;
+//		//追跡ステートの時。
+//	case enBanninState_Chase:
+//		//追跡アニメーションを再生。
+//		m_modelRender.SetAnimationSpeed(1.2f);
+//		//走りアニメーションを再生。
+//		m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
+//		break;
+//		//吠えるステートの時。
+//	case enBanninState_Bark:
+//		//吠えるアニメーションを再生。
+//		m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
+//		break;
+//	default:
+//		break;
+//	}
 }
 
 void Bannin::MakeBarkCollision()
@@ -189,17 +193,17 @@ void Bannin::ProcessIdleStateTransition() //待機ステート。
 void Bannin::ProcessRunStateTransition() //走りステート。
 {
 	//他のステートへ遷移する。
-	ProcessCommonStateTransition();
+	//ProcessCommonStateTransition();
 }
 
 void Bannin::ProcessChaseStateTransition()
 {
 	//追跡時間がある程度経過したら。
-	if (m_chaseTimer >= 0.8f)
-	{
-		//他のステートへ遷移する。
-		ProcessCommonStateTransition();
-	}
+	//if (m_chaseTimer >= 0.8f)
+	//{
+	//	//他のステートへ遷移する。
+	//	ProcessCommonStateTransition();
+	//}
 }
 
 void Bannin::ProcessBarkStateTransition()
@@ -209,24 +213,24 @@ void Bannin::ProcessBarkStateTransition()
 
 void Bannin::ManageState()
 {
-	switch (m_banninState)
-	{
-	//待機ステートの時。
-	case enBanninState_Idle:
-		//待機ステートのステート遷移処理。
-		ProcessIdleStateTransition();
-		break;
-	//追跡ステートの時。
-	case enBanninState_Chase:
-		//追跡ステートのステート遷移処理。
-		ProcessChaseStateTransition();
-		break;
-	//吠えるステートの時。
-	case enBanninState_Bark:
-		//吠えるステートのステート遷移処理。
-		ProcessBarkStateTransition();
-		break;
-	}
+	//switch (m_banninState)
+	//{
+	////待機ステートの時。
+	//case enBanninState_Idle:
+	//	//待機ステートのステート遷移処理。
+	//	ProcessIdleStateTransition();
+	//	break;
+	////追跡ステートの時。
+	//case enBanninState_Chase:
+	//	//追跡ステートのステート遷移処理。
+	//	ProcessChaseStateTransition();
+	//	break;
+	////吠えるステートの時。
+	//case enBanninState_Bark:
+	//	//吠えるステートのステート遷移処理。
+	//	ProcessBarkStateTransition();
+	//	break;
+	//}
 }
 
 
@@ -234,17 +238,17 @@ void Bannin::ManageState()
 void Bannin::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
 {
 	//キーの名前が「bark_start」の時。
-	if (wcscmp(eventName, L"bark_start") == 0)
-	{
-		//吠えている
-		m_isUnderBark = true;
-	}
-	//キーの名前が「bark_end」の時。
-	else if (wcscmp(eventName, L"bark_end") == 0)
-	{
-		//吠えるのを終える。
-		m_isUnderBark = false;
-	}
+	//if (wcscmp(eventName, L"bark_start") == 0)
+	//{
+	//	//吠えている
+	//	m_isUnderBark = true;
+	//}
+	////キーの名前が「bark_end」の時。
+	//else if (wcscmp(eventName, L"bark_end") == 0)
+	//{
+	//	//吠えるのを終える。
+	//	m_isUnderBark = false;
+	//}
 
 }
 
