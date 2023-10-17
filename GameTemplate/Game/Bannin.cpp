@@ -14,29 +14,28 @@ Bannin::Bannin()
 bool Bannin::Start()
 {
 	//アニメーションを読み込む。
-	m_animationClips[enAnimationClip_Idle].Load("Assets/modelData/Mutant.fbm/idle.tka");
-	m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-	m_animationClips[enAnimationClip_Run].Load("Assets/modelData/Mutant.fbm/run.tka");
-	m_animationClips[enAnimationClip_Run].SetLoopFlag(true);
-	m_animationClips[enAnimationClip_Bark].Load("Assets/modelData/Mutant.fbm/bark.tka");
-	m_animationClips[enAnimationClip_Bark].SetLoopFlag(false);
+	//m_animationClips[enAnimationClip_Idle].Load("Assets/modelData/Mutant.fbm/idle.tka");
+	//m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
+	//m_animationClips[enAnimationClip_Run].Load("Assets/modelData/Mutant.fbm/run.tka");
+	//m_animationClips[enAnimationClip_Run].SetLoopFlag(true);
+	//m_animationClips[enAnimationClip_Bark].Load("Assets/modelData/Mutant.fbm/bark.tka");
+	//m_animationClips[enAnimationClip_Bark].SetLoopFlag(false);
 	
 	//モデルを読み込む。
-	m_modelRender.Init("Assets/modelData/Mutant.fbm/Bannin.tkm",m_animationClips,enAnimationClip_Num);
+	//m_modelRender.Init("Assets/modelData/Mutant.fbm/Bannin.tkm",m_animationClips,enAnimationClip_Num);
+	m_modelRender.Init("Assets/modelData/Bannin.fbm/Bannin.tkm");
 	//座標を設定する。
 	m_modelRender.SetPosition(m_position);
+
+
 	//m_modelRender.SetScale(0.03f, 0.03f, 0.03f);
 
 	//アニメーションイベント用の関数を設定する。
-	m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
+	/*m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
 		OnAnimationEvent(clipName, eventName);
-		});
+		});*/
 
-	//座標を設定する。
-	//m_modelRender.SetPosition(m_position);
-
-	//大きさを設定する。
-	//m_modelRender.SetScale(m_scale);
+	
 
 
 	//キャラクターコントローラーを初期化。
@@ -49,15 +48,13 @@ bool Bannin::Start()
 
 
 	return true;
-
-
 }
 
 void Bannin::Update()
 {
 	//追跡処理。
-	Chase();
-	//当たり判定。
+	//Chase();
+	////当たり判定。
 	Collision();
 
 	//モデルの更新。
@@ -117,7 +114,7 @@ void Bannin::Collision()
 
 void Bannin::Move()
 {
-	m_modelRender.SetPosition(m_position); //座標を設定。
+	//m_modelRender.SetPosition(m_position); //座標を設定。
 }
 
 void Bannin::Bark()
@@ -181,13 +178,13 @@ void Bannin::ProcessCommonStateTransition()
 
 void Bannin::ProcessIdleStateTransition() //待機ステート。
 {
-	m_idleTimer += g_gameTime->GetFrameDeltaTime();
+	//m_idleTimer += g_gameTime->GetFrameDeltaTime();
 	//待機時間がある程度経過したら。
-	if (m_idleTimer >= 0.9f)
-	{
+	//if (m_idleTimer >= 0.9f)
+	//{
 		//他のステートへ遷移する。
-		ProcessCommonStateTransition();
-	}
+		//ProcessCommonStateTransition();
+	//}
 }
 
 void Bannin::ProcessRunStateTransition() //走りステート。
