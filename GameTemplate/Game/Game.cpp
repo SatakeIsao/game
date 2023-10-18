@@ -24,7 +24,7 @@ Game::Game()
 	//m_levelRender.Init("Assets/modelData/level.tkl",
 	//	[&](LevelObjectData& objData)
 	//	{
-	//		if (objData.EqualObjectName(L"Mutant") == true)
+	//		if (objData.EqualObjectName(L"Bannin") == true)
 	//		{
 	//			//番人のオブジェクトを作る。
 	//			bannin = NewGO<Bannin>(0, "bannin");

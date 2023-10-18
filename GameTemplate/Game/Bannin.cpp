@@ -14,11 +14,11 @@ Bannin::Bannin()
 bool Bannin::Start()
 {
 	//アニメーションを読み込む。
-	//m_animationClips[enAnimationClip_Idle].Load("Assets/modelData/Mutant.fbm/idle.tka");
+	//m_animationClips[enAnimationClip_Idle].Load("Assets/modelData/Mutant.fbm/idle2.tka");
 	//m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-	//m_animationClips[enAnimationClip_Run].Load("Assets/modelData/Mutant.fbm/run.tka");
+	//m_animationClips[enAnimationClip_Run].Load("Assets/modelData/Mutant.fbm/run2.tka");
 	//m_animationClips[enAnimationClip_Run].SetLoopFlag(true);
-	//m_animationClips[enAnimationClip_Bark].Load("Assets/modelData/Mutant.fbm/bark.tka");
+	//m_animationClips[enAnimationClip_Bark].Load("Assets/modelData/Mutant.fbm/bark2.tka");
 	//m_animationClips[enAnimationClip_Bark].SetLoopFlag(false);
 	
 	//モデルを読み込む。
