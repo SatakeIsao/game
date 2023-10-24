@@ -43,7 +43,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	skyCube->SetScale(1000.0f);
 
 	//Gameクラスのオブジェクトを作成。
-	//NewGO<Game>(0, "Game");
+	NewGO<Game>(0, "Game");
 	NewGO<Title>(0, "Title");
 
 	//////////////////////////////////////

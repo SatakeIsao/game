@@ -139,7 +139,7 @@ void Bannin::Bark()
 
 const bool Bannin::SearchPlayer() const
 {
-	/*return false;*/
+	return false;
 }
 
 void Bannin::PlayAnimation()
