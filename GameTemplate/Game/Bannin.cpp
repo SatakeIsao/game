@@ -14,7 +14,7 @@ Bannin::Bannin()
 bool Bannin::Start()
 {
 	//アニメーションを読み込む。
-	//m_animationClips[enAnimationClip_Idle].Load("Assets/modelData/Mutant.fbm/idle2.tka");
+	//m_animationClips[enAnimationClip_Idle].Load("Assets/animData/SkeletonIdle.tka");
 	//m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
 	//m_animationClips[enAnimationClip_Run].Load("Assets/modelData/Mutant.fbm/run2.tka");
 	//m_animationClips[enAnimationClip_Run].SetLoopFlag(true);
@@ -22,18 +22,19 @@ bool Bannin::Start()
 	//m_animationClips[enAnimationClip_Bark].SetLoopFlag(false);
 	
 	//モデルを読み込む。
-	//m_modelRender.Init("Assets/modelData/Mutant.fbm/Bannin.tkm",m_animationClips,enAnimationClip_Num);
-	m_modelRender.Init("Assets/modelData/Bannin.fbm/Bannin.tkm");
+	//m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm",m_animationClips,enAnimationClip_Num);
+	m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm");
+	m_modelRender.Update();
 	//座標を設定する。
 	m_modelRender.SetPosition(m_position);
 
 
-	//m_modelRender.SetScale(0.03f, 0.03f, 0.03f);
+	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
 
 	//アニメーションイベント用の関数を設定する。
-	/*m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
+	m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
 		OnAnimationEvent(clipName, eventName);
-		});*/
+		});
 
 	
 
@@ -114,7 +115,9 @@ void Bannin::Collision()
 
 void Bannin::Move()
 {
-	//m_modelRender.SetPosition(m_position); //座標を設定。
+	
+	m_position = m_charaCon.Execute(moveSpeed, 1.0f / 60.0f); //キャラコン使って
+	m_modelRender.SetPosition(m_position); //座標を設定。
 }
 
 void Bannin::Bark()
@@ -141,34 +144,45 @@ const bool Bannin::SearchPlayer() const
 
 void Bannin::PlayAnimation()
 {
-//	m_modelRender.SetAnimationSpeed(1.0f);
-//	switch (m_banninState)
-//	{
-//		//待機ステートの時。
-//	case enBanninState_Idle:
-//		//待機アニメーションを再生。
-//		m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
-//		break;
-//		//追跡ステートの時。
-//	case enBanninState_Chase:
-//		//追跡アニメーションを再生。
-//		m_modelRender.SetAnimationSpeed(1.2f);
-//		//走りアニメーションを再生。
-//		m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
-//		break;
-//		//吠えるステートの時。
-//	case enBanninState_Bark:
-//		//吠えるアニメーションを再生。
-//		m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
-//		break;
-//	default:
-//		break;
-//	}
+	//m_modelRender.SetAnimationSpeed(1.0f);
+	//switch (m_banninState)
+	//{
+		//待機ステートの時。
+	//case enBanninState_Idle:
+		//待機アニメーションを再生。
+		//m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
+		//break;
+	//	//追跡ステートの時。
+	//case enBanninState_Chase:
+	//	//追跡アニメーションを再生。
+	//	m_modelRender.SetAnimationSpeed(1.2f);
+	//	//走りアニメーションを再生。
+	//	m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
+	//	break;
+	//	//吠えるステートの時。
+	//case enBanninState_Bark:
+	//	//吠えるアニメーションを再生。
+	//	m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
+	//	break;
+	//default:
+		//break;
+	//}
 }
 
-void Bannin::MakeBarkCollision()
+void Bannin::MakePushLeverCollision()
 {
+	////コリジョンオブジェクトを作成する。
+	//CollisionObject* collisionObject = NewGO<CollisionObject>(0);
+	//Vector3 collisionPosition = m_position;
 
+	////座標を番人の少し前に設定する。
+	//collisionPosition += m_forward * 50.0f;
+	////球状のコリジョンを作成する。
+	//collisionObject->CreateSphere(collisionPosition, //座標。
+	//	Quaternion::Identity, //回転。
+	//	70.0f); //球の大きさ(半径)。
+	//	//名前を付ける。
+	//collisionObject->SetName("player_lever");
 }
 
 void Bannin::ProcessCommonStateTransition()

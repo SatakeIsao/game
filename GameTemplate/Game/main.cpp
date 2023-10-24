@@ -36,7 +36,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
-
 	
 
 	SkyCube* skyCube = NewGO<SkyCube>(0);

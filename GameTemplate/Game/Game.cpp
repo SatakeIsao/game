@@ -8,13 +8,26 @@
 #include "GameClear.h"
 #include "sound/SoundEngine.h"
 
-bool Game::Start()
+Game::Game()
 {
 
-	return true;
 }
 
-Game::Game()
+Game::~Game()
+{
+	//プレイヤーを削除する。
+	DeleteGO(player);
+	//番人を削除する。
+	DeleteGO(bannin);
+	//ゲームカメラを削除する。
+	DeleteGO(m_GameCamera);
+	//ゲーム中のBGMを削除する。
+	DeleteGO(gameBGM);
+	//背景を削除する。
+	DeleteGO(background);
+}
+
+bool Game::Start()
 {
 	//プレイヤーのオブジェクトを作る。
 	player = NewGO<Player>(0, "player");
@@ -47,12 +60,15 @@ Game::Game()
 
 	//背景のオブジェクトを作る。
 	background = NewGO<BackGround>(0, "backGround");
-	
+
 	//background->m_position = { 0.0f,0.0f,0.0f };
 
 	//ボタンのオブジェクトを作る。
 	botan = NewGO<Botan>(0, "botan");
-	botan->m_position = {600.0f,-20.0f,-200.0f };
+	botan->m_position = { 600.0f,-20.0f,-200.0f };
+
+	//当たり判定を可視化する。
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 
 	//ゲーム中のBGMを読み込む。
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/maou_game_dangeon15.wav");
@@ -61,21 +77,11 @@ Game::Game()
 	gameBGM = NewGO<SoundSource>(1);
 	gameBGM->Init(1);
 	gameBGM->Play(true);
+	return true;
 }
 
-Game::~Game()
-{
-	//プレイヤーを削除する。
-	DeleteGO(player);
-	//番人を削除する。
-	DeleteGO(bannin);
-	//ゲームカメラを削除する。
-	DeleteGO(m_GameCamera);
-	//ゲーム中のBGMを削除する。
-	DeleteGO(gameBGM);
-	//背景を削除する。
-	DeleteGO(background);
-}
+
+
 
 
 

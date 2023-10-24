@@ -78,7 +78,7 @@ public:
 	const bool SearchPlayer() const; //プレイヤーを探索する。
 									 //プレイヤーが見つかったらtrue。
 
-	void MakeBarkCollision(); //吠える用の当たり判定コリジョンを作成する。
+	void MakePushLeverCollision(); //当たり判定コリジョンを作成する。
 	void ProcessCommonStateTransition(); //共通のステートの遷移処理。
 	void ProcessIdleStateTransition(); //待機ステートの遷移処理。
 	void ProcessRunStateTransition();   //走りステートの遷移処理。
@@ -94,6 +94,8 @@ public:
 	ModelRender m_modelRender;
 	Vector3 m_position; //座標。
 	Vector3 m_scale = Vector3::One; //大きさ
+	Vector3 m_forward = Vector3::AxisZ; //プレイヤーの正面ベクトル。
+	Vector3 moveSpeed; //移動速度。
 	Quaternion m_rotation; //回転。
 	CharacterController	m_charaCon; //キャラコン。
 	EnBanninState m_banninState = enBanninState_Idle;
