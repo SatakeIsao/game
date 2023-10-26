@@ -10,7 +10,16 @@
 
 Game::Game()
 {
+	
+		for (m_timer += g_gameTime->GetFrameDeltaTime(); m_timer <= 60;) {
 
+			//g_timer = m_timer;
+			//m_timer = 0;
+
+			//m_timer += g_gameTime->GetFrameDeltaTime();
+		}
+	//m_timer = 00;
+	g_timer += 1;
 }
 
 Game::~Game()
@@ -77,9 +86,9 @@ bool Game::Start()
 	gameBGM = NewGO<SoundSource>(1);
 	gameBGM->Init(1);
 	gameBGM->Play(true);
+
 	return true;
 }
-
 
 
 
@@ -89,9 +98,13 @@ bool Game::Start()
 void Game::Update()
 {
 	wchar_t wcsbuf[256];
-	swprintf_s(wcsbuf, 256, L"%d秒経過!!", int(m_timer));
-	
 
+	
+	swprintf_s(wcsbuf, 256, L"%d:%d", int(m_timer), (g_timer));
+	
+	//for (m_timer = 0; m_timer <= 60; m_timer++) {
+		//g_timer = m_timer;
+	//}
 
 	//表示するテキストを設定。
 	m_fontRender.SetText(wcsbuf);
@@ -102,7 +115,17 @@ void Game::Update()
 	//フォントの色を設定。
 	m_fontRender.SetColor({ 255.0f,0.0f,0.0f,1.0f });
 
-	m_timer += g_gameTime->GetFrameDeltaTime();
+	//for (m_timer += g_gameTime->GetFrameDeltaTime(); m_timer <= 60;) {
+		
+		//g_timer = m_timer;
+		//m_timer = 0;
+
+		//m_timer += g_gameTime->GetFrameDeltaTime();
+	//}
+	//m_timer = 00;
+	g_timer += 1;
+	//m_timer += g_gameTime->GetFrameDeltaTime();
+	//g_timer += g_gameTime->GetFrameDeltaTime();
 
 
 	Vector3 diff = botan->m_position - player->m_position;

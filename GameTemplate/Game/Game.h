@@ -42,5 +42,6 @@ public:
 
 	FontRender m_fontRender;
 	float m_timer = 0.0f;
+	float g_timer = 0.0f;
 };
 

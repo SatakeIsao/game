@@ -14,21 +14,21 @@ Bannin::Bannin()
 bool Bannin::Start()
 {
 	//アニメーションを読み込む。
-	//m_animationClips[enAnimationClip_Idle].Load("Assets/animData/SkeletonIdle.tka");
-	//m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-	//m_animationClips[enAnimationClip_Run].Load("Assets/modelData/Mutant.fbm/run2.tka");
-	//m_animationClips[enAnimationClip_Run].SetLoopFlag(true);
+	m_animationClips[enAnimationClip_Idle].Load("Assets/animData/SkeletonIdle.tka");
+	m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
+	m_animationClips[enAnimationClip_Run].Load("Assets/animData/SkeletonRun.tka");
+	m_animationClips[enAnimationClip_Run].SetLoopFlag(true);
 	//m_animationClips[enAnimationClip_Bark].Load("Assets/modelData/Mutant.fbm/bark2.tka");
 	//m_animationClips[enAnimationClip_Bark].SetLoopFlag(false);
 	
 	//モデルを読み込む。
-	//m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm",m_animationClips,enAnimationClip_Num);
-	m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm");
+	m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm",m_animationClips,enAnimationClip_Num);
+	//m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm");
 	m_modelRender.Update();
 	//座標を設定する。
 	m_modelRender.SetPosition(m_position);
 
-
+	//大きさを設定する。
 	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
 
 	//アニメーションイベント用の関数を設定する。
@@ -46,7 +46,7 @@ bool Bannin::Start()
 		m_position  //座標。
 	);
 
-
+	m_player = FindGO<Player>("player");
 
 	return true;
 }
@@ -54,7 +54,7 @@ bool Bannin::Start()
 void Bannin::Update()
 {
 	//追跡処理。
-	//Chase();
+	Chase();
 	////当たり判定。
 	Collision();
 
@@ -67,10 +67,23 @@ void Bannin::Update()
 void Bannin::Chase()
 {
 	//追跡ステートでないなら、追跡処理はしない。
-	/*if (m_banninState != enBanninState_Chase)
+	if (m_banninState != enBanninState_Chase)
 	{
 		return;
-	}*/
+	}
+
+	//番人を移動させる。
+	m_position = m_charaCon.Execute(m_moveSpeed, g_gameTime->GetFrameDeltaTime());
+	if (m_charaCon.IsOnGround()) {
+		//地面についた。
+		//重力を0にする。
+		m_moveSpeed.y = 0.0f;
+	}
+	Vector3 modelPosition = m_position;
+	//少しだけモデルの座標を上げる。
+	modelPosition.y += 2.5f;
+	//座標を設定する。
+	m_modelRender.SetPosition(modelPosition);
 }
 
 void Bannin::Collision()
@@ -116,8 +129,8 @@ void Bannin::Collision()
 void Bannin::Move()
 {
 	
-	m_position = m_charaCon.Execute(moveSpeed, 1.0f / 60.0f); //キャラコン使って
-	m_modelRender.SetPosition(m_position); //座標を設定。
+	//m_position = m_charaCon.Execute(m_moveSpeed, 1.0f / 60.0f); //キャラコン使って
+	//m_modelRender.SetPosition(m_position); //座標を設定。
 }
 
 void Bannin::Bark()
@@ -144,29 +157,29 @@ const bool Bannin::SearchPlayer() const
 
 void Bannin::PlayAnimation()
 {
-	//m_modelRender.SetAnimationSpeed(1.0f);
-	//switch (m_banninState)
-	//{
+	m_modelRender.SetAnimationSpeed(1.0f);
+	switch (m_banninState)
+	{
 		//待機ステートの時。
-	//case enBanninState_Idle:
+	case enBanninState_Idle:
 		//待機アニメーションを再生。
-		//m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
-		//break;
-	//	//追跡ステートの時。
-	//case enBanninState_Chase:
-	//	//追跡アニメーションを再生。
-	//	m_modelRender.SetAnimationSpeed(1.2f);
-	//	//走りアニメーションを再生。
-	//	m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
-	//	break;
-	//	//吠えるステートの時。
+		m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
+		break;
+		//追跡ステートの時。
+	case enBanninState_Chase:
+		//追跡アニメーションを再生。
+		m_modelRender.SetAnimationSpeed(1.2f);
+		//走りアニメーションを再生。
+		m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
+		break;
+		//吠えるステートの時。
 	//case enBanninState_Bark:
-	//	//吠えるアニメーションを再生。
-	//	m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
-	//	break;
-	//default:
+		//吠えるアニメーションを再生。
+		//m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
 		//break;
-	//}
+	default:
+		break;
+	}
 }
 
 void Bannin::MakePushLeverCollision()
@@ -192,29 +205,29 @@ void Bannin::ProcessCommonStateTransition()
 
 void Bannin::ProcessIdleStateTransition() //待機ステート。
 {
-	//m_idleTimer += g_gameTime->GetFrameDeltaTime();
+	m_idleTimer += g_gameTime->GetFrameDeltaTime();
 	//待機時間がある程度経過したら。
-	//if (m_idleTimer >= 0.9f)
-	//{
+	if (m_idleTimer >= 0.9f)
+	{
 		//他のステートへ遷移する。
-		//ProcessCommonStateTransition();
-	//}
+		ProcessCommonStateTransition();
+	}
 }
 
 void Bannin::ProcessRunStateTransition() //走りステート。
 {
 	//他のステートへ遷移する。
-	//ProcessCommonStateTransition();
+	ProcessCommonStateTransition();
 }
 
 void Bannin::ProcessChaseStateTransition()
 {
 	//追跡時間がある程度経過したら。
-	//if (m_chaseTimer >= 0.8f)
-	//{
-	//	//他のステートへ遷移する。
-	//	ProcessCommonStateTransition();
-	//}
+	if (m_chaseTimer >= 0.8f)
+	{
+		//他のステートへ遷移する。
+		ProcessCommonStateTransition();
+	}
 }
 
 void Bannin::ProcessBarkStateTransition()
@@ -224,24 +237,24 @@ void Bannin::ProcessBarkStateTransition()
 
 void Bannin::ManageState()
 {
-	//switch (m_banninState)
-	//{
-	////待機ステートの時。
-	//case enBanninState_Idle:
-	//	//待機ステートのステート遷移処理。
-	//	ProcessIdleStateTransition();
-	//	break;
-	////追跡ステートの時。
-	//case enBanninState_Chase:
-	//	//追跡ステートのステート遷移処理。
-	//	ProcessChaseStateTransition();
-	//	break;
+	switch (m_banninState)
+	{
+	//待機ステートの時。
+	case enBanninState_Idle:
+		//待機ステートのステート遷移処理。
+		ProcessIdleStateTransition();
+		break;
+	//追跡ステートの時。
+	case enBanninState_Chase:
+		//追跡ステートのステート遷移処理。
+		ProcessChaseStateTransition();
+		break;
 	////吠えるステートの時。
 	//case enBanninState_Bark:
 	//	//吠えるステートのステート遷移処理。
 	//	ProcessBarkStateTransition();
 	//	break;
-	//}
+	}
 }
 
 

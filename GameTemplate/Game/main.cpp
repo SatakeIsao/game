@@ -44,7 +44,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//Gameクラスのオブジェクトを作成。
 	NewGO<Game>(0, "Game");
-	NewGO<Title>(0, "Title");
+	//NewGO<Title>(0, "Title");
 
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
@@ -62,7 +62,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	K2Engine::DeleteInstance();
 
 #ifdef _DEBUG
-	ReportLiveObjects();
+	//ReportLiveObjects();
 #endif // _DEBUG
 	return 0;
 }

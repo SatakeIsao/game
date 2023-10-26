@@ -95,12 +95,13 @@ public:
 	Vector3 m_position; //座標。
 	Vector3 m_scale = Vector3::One; //大きさ
 	Vector3 m_forward = Vector3::AxisZ; //プレイヤーの正面ベクトル。
-	Vector3 moveSpeed; //移動速度。
+	Vector3 m_moveSpeed; //移動速度。
 	Quaternion m_rotation; //回転。
 	CharacterController	m_charaCon; //キャラコン。
 	EnBanninState m_banninState = enBanninState_Idle;
 	bool m_isUnderBark = false; //吠えているのならtrue。
 	int m_hp = 0;
+	Player* m_player = nullptr; //プレイヤー。
 	float m_chaseTimer = 0.0f; //追跡タイマー。
 	float m_idleTimer = 0.0f; //待機タイマー。
 };
