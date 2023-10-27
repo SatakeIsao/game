@@ -102,10 +102,11 @@ void Game::Update()
 	//int minit = 0;
 	swprintf_s(wcsbuf, 256, L"%d:%d", int(minit), int(m_timer));
 	
-	int minit = 0;
+	//int minit = 0;
 	float nowTime = m_timer;
 	for (; nowTime >= 60.0f;) {
 		nowTime -= 60.0f;
+		m_timer = nowTime;	//’Ç‰Á
 		minit++;
 	}
 	//for (m_timer = 0; m_timer <= 60; m_timer++) {

@@ -45,7 +45,7 @@ public:
 	float m_timer = 0.0f;
 	float g_timer = 0.0f;
 
-	int a = 0;
-	int minit = 0;
+	
+	int minit = 0;	//’Ç‰Á
 };
 
