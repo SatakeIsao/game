@@ -11,15 +11,15 @@
 Game::Game()
 {
 	
-		for (m_timer += g_gameTime->GetFrameDeltaTime(); m_timer <= 60;) {
+		//for (m_timer += g_gameTime->GetFrameDeltaTime(); m_timer <= 60;) {
 
 			//g_timer = m_timer;
 			//m_timer = 0;
 
 			//m_timer += g_gameTime->GetFrameDeltaTime();
-		}
+	//	}
 	//m_timer = 00;
-	g_timer += 1;
+	//g_timer += 1;
 }
 
 Game::~Game()
@@ -99,9 +99,15 @@ void Game::Update()
 {
 	wchar_t wcsbuf[256];
 
+	//int minit = 0;
+	swprintf_s(wcsbuf, 256, L"%d:%d", int(minit), int(m_timer));
 	
-	swprintf_s(wcsbuf, 256, L"%d:%d", int(m_timer), (g_timer));
-	
+	int minit = 0;
+	float nowTime = m_timer;
+	for (; nowTime >= 60.0f;) {
+		nowTime -= 60.0f;
+		minit++;
+	}
 	//for (m_timer = 0; m_timer <= 60; m_timer++) {
 		//g_timer = m_timer;
 	//}
@@ -123,10 +129,16 @@ void Game::Update()
 		//m_timer += g_gameTime->GetFrameDeltaTime();
 	//}
 	//m_timer = 00;
-	g_timer += 1;
+	//g_timer += 1;
 	//m_timer += g_gameTime->GetFrameDeltaTime();
-	//g_timer += g_gameTime->GetFrameDeltaTime();
-
+	m_timer += g_gameTime->GetFrameDeltaTime(); //1f=1/60•b
+	
+	/*int minit = 0;
+	float nowTime = g_timer;
+	for (; nowTime >= 60.0f ;) {
+		nowTime -= 60.0f;
+		minit++;
+	}*/
 
 	Vector3 diff = botan->m_position - player->m_position;
 	if (diff.Length() <= 70.0f)

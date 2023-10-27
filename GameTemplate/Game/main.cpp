@@ -25,7 +25,7 @@ void ReportLiveObjects()
 	// 出力。
 	pDxgiDebug->ReportLiveObjects(DXGI_DEBUG_D3D12, DXGI_DEBUG_RLO_DETAIL);
 }
-
+int g_a = 0;;
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
 ///////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
 	
-
+	g_a++;
 	SkyCube* skyCube = NewGO<SkyCube>(0);
 	skyCube->SetType(enSkyCubeType_NightToon_2);
 	skyCube->SetScale(1000.0f);
