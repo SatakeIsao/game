@@ -100,7 +100,7 @@ void Game::Update()
 	wchar_t wcsbuf[256];
 
 	//int minit = 0;
-	swprintf_s(wcsbuf, 256, L"%d:%d", int(minit), int(m_timer));
+	swprintf_s(wcsbuf, 256, L"%02d:%02d", int(minit), int(m_timer));
 	
 	//int minit = 0;
 	float nowTime = m_timer;

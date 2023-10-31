@@ -26,8 +26,11 @@ bool Bannin::Start()
 	//m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm");
 	m_modelRender.Update();
 	//座標を設定する。
+	Vector3 position = m_position;
+	position.y = 2.5f;
 	m_modelRender.SetPosition(m_position);
-
+	//回転を設定する。
+	m_modelRender.SetRotation(m_rotation);
 	//大きさを設定する。
 	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
 
@@ -48,6 +51,11 @@ bool Bannin::Start()
 
 	m_player = FindGO<Player>("player");
 
+	//乱数を初期化。
+	srand((unsigned)time(NULL));
+	m_forward = Vector3::AxisZ;
+	m_rotation.Apply(m_forward);
+
 	return true;
 }
 
@@ -57,12 +65,20 @@ void Bannin::Update()
 	Chase();
 	////当たり判定。
 	Collision();
+	//アニメーションの再生。
+	PlayAnimation();
+	//ステートの遷移処理。
+	ManageState();
 
 	//モデルの更新。
 	m_modelRender.Update();
 }
 
-
+void Bannin::Rotation()
+{
+	if(fabsf(m_moveSpeed.x)<0.001f
+		&& fabsf)
+}
 
 void Bannin::Chase()
 {
@@ -152,35 +168,31 @@ void Bannin::Bark()
 
 const bool Bannin::SearchPlayer() const
 {
+	//番人からプレイヤーに向かうベクトルを求める。
+	Vector3 diff = m_player->GetPosition() - m_position;
+
+	//プレイヤーにある程度近かったら。
+	if (diff.LengthSq() <= 700.0 * 700.0f)
+	{
+		//番人からプレイヤーに向かうベクトルを正当化(大きさを１)する。
+		diff.Normalize();
+		//番人の正面のベクトルと、番人からプレイヤーに向かうベクトルの。
+		//内積(cosθ)を求める。
+		float cos = m_forward.Dot(diff);
+		//内積(cosθ)から角度(θ)を求める。
+		float angle = acosf(cos);
+		//角度(θ)が120°(視野角)より小さければ。
+		if (angle <= (Math::PI / 180.0f) * 120.0f)
+		{
+			//プレイヤーを見つけた！
+			return true;
+		}
+	}
+	//プレイヤーを見つけられなかった。
 	return false;
 }
 
-void Bannin::PlayAnimation()
-{
-	m_modelRender.SetAnimationSpeed(1.0f);
-	switch (m_banninState)
-	{
-		//待機ステートの時。
-	case enBanninState_Idle:
-		//待機アニメーションを再生。
-		m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
-		break;
-		//追跡ステートの時。
-	case enBanninState_Chase:
-		//追跡アニメーションを再生。
-		m_modelRender.SetAnimationSpeed(1.2f);
-		//走りアニメーションを再生。
-		m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
-		break;
-		//吠えるステートの時。
-	//case enBanninState_Bark:
-		//吠えるアニメーションを再生。
-		//m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
-		//break;
-	default:
-		break;
-	}
-}
+
 
 void Bannin::MakePushLeverCollision()
 {
@@ -200,7 +212,28 @@ void Bannin::MakePushLeverCollision()
 
 void Bannin::ProcessCommonStateTransition()
 {
-	
+	//各タイマーを初期化。
+	//待機時間と追跡時間を制限するため。
+	m_idleTimer = 0.0;
+	m_chaseTimer = 0.0;
+
+	//番人からプレイヤーに向かうベクトルを計算する。
+	Vector3 diff = m_player->GetPosition() - m_position;
+
+	//プレイヤーを見つけたら。
+	if (SearchPlayer() == true)
+	{
+		//追跡ステートに遷移する。
+		m_banninState = enBanninState_Chase;
+		return;
+	}
+	//プレイヤーを見つけられなければ。
+	else
+	{
+		//待機ステートに遷移する。
+		m_banninState = enBanninState_Idle;
+		return;
+	}
 }
 
 void Bannin::ProcessIdleStateTransition() //待機ステート。
@@ -222,6 +255,7 @@ void Bannin::ProcessRunStateTransition() //走りステート。
 
 void Bannin::ProcessChaseStateTransition()
 {
+	m_chaseTimer += g_gameTime->GetFrameDeltaTime();
 	//追跡時間がある程度経過したら。
 	if (m_chaseTimer >= 0.8f)
 	{
@@ -274,6 +308,33 @@ void Bannin::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
 	//	m_isUnderBark = false;
 	//}
 
+}
+
+void Bannin::PlayAnimation()
+{
+	m_modelRender.SetAnimationSpeed(1.0f);
+	switch (m_banninState)
+	{
+		//待機ステートの時。
+	case enBanninState_Idle:
+		//待機アニメーションを再生。
+		m_modelRender.PlayAnimation(enAnimationClip_Idle, 0.5f);
+		break;
+		//追跡ステートの時。
+	case enBanninState_Chase:
+		//追跡アニメーションを再生。
+		m_modelRender.SetAnimationSpeed(1.2f);
+		//走りアニメーションを再生。
+		m_modelRender.PlayAnimation(enAnimationClip_Run, 0.1f);
+		break;
+		//吠えるステートの時。
+	//case enBanninState_Bark:
+		//吠えるアニメーションを再生。
+		//m_modelRender.PlayAnimation(enAnimationClip_Bark, 0.1f);
+		//break;
+	default:
+		break;
+	}
 }
 
 void Bannin::Render(RenderContext& rc)
