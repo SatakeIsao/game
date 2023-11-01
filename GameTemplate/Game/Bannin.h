@@ -48,6 +48,7 @@ public:
 	}
 
 
+
 	//<summary>
 	//動ける状態(ステート)かどうかを取得。
 	// </summary>
@@ -74,6 +75,7 @@ public:
 		enAnimationClip_Num,		//アニメーションの数。
 	};
 	void Chase(); //追跡処理
+	void Rotation(); //回転処理。
 	void Collision(); //プレイヤーとの当たり判定
 	const bool SearchPlayer() const; //プレイヤーを探索する。
 									 //プレイヤーが見つかったらtrue。

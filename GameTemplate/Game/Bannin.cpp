@@ -24,7 +24,8 @@ bool Bannin::Start()
 	//モデルを読み込む。
 	m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm",m_animationClips,enAnimationClip_Num);
 	//m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm");
-	m_modelRender.Update();
+
+	//m_modelRender.Update();
 	//座標を設定する。
 	Vector3 position = m_position;
 	position.y = 2.5f;
@@ -35,9 +36,9 @@ bool Bannin::Start()
 	m_modelRender.SetScale(10.0f, 10.0f, 10.0f);
 
 	//アニメーションイベント用の関数を設定する。
-	m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
-		OnAnimationEvent(clipName, eventName);
-		});
+	//m_modelRender.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
+		//OnAnimationEvent(clipName, eventName);
+		//});
 
 	
 
@@ -63,6 +64,8 @@ void Bannin::Update()
 {
 	//追跡処理。
 	Chase();
+	//回転処理。
+	Rotation();
 	////当たり判定。
 	Collision();
 	//アニメーションの再生。
@@ -76,8 +79,27 @@ void Bannin::Update()
 
 void Bannin::Rotation()
 {
-	if(fabsf(m_moveSpeed.x)<0.001f
-		&& fabsf)
+	if (fabsf(m_moveSpeed.x) < 0.001f
+		&& fabsf(m_moveSpeed.z) < 0.001f) {
+		//m_moveSpeed.xとm_moveSpeed.zの絶対値がともに0.001以下ということは
+		//このフレームではキャラは移動していないので旋回する必要はない。
+		return;
+	}
+	//atan2はtanθの値を角度(ラジアン単位)に変換してくれる関数。
+	//m_moveSpeed.x / m_moveSpeed.zの結果はtanθになる。
+	//atan2を使用して、角度を求めている。
+	//これが回転角度になる。
+	float angle = atan2(-m_moveSpeed.x, m_moveSpeed.z);
+	//atanが返してくる角度はラジアン単位なので
+	//SetRotationDegではなくSetRotationを使用する。
+	m_rotation.SetRotationY(-angle);
+
+	//回転を設定する。
+	m_modelRender.SetRotation(m_rotation);
+
+	//プレイヤーの前ベクトルを計算する。
+	m_forward = Vector3::AxisZ;
+	m_rotation.Apply(m_forward);
 }
 
 void Bannin::Chase()
@@ -214,8 +236,8 @@ void Bannin::ProcessCommonStateTransition()
 {
 	//各タイマーを初期化。
 	//待機時間と追跡時間を制限するため。
-	m_idleTimer = 0.0;
-	m_chaseTimer = 0.0;
+	m_idleTimer = 0.0f;
+	m_chaseTimer = 0.0f;
 
 	//番人からプレイヤーに向かうベクトルを計算する。
 	Vector3 diff = m_player->GetPosition() - m_position;
