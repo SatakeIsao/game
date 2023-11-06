@@ -69,7 +69,7 @@ bool Game::Start()
 	m_GameCamera = NewGO<GameCamera>(0, "gamecamera");
 
 	//背景のオブジェクトを作る。
-	//background = NewGO<BackGround>(0, "backGround");
+	background = NewGO<BackGround>(0, "backGround");
 
 	//background->m_position = { 0.0f,0.0f,0.0f };
 

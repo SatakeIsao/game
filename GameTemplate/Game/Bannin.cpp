@@ -66,7 +66,7 @@ void Bannin::Update()
 	Chase();
 	//回転処理。
 	Rotation();
-	////当たり判定。
+	//当たり判定。
 	Collision();
 	//アニメーションの再生。
 	PlayAnimation();
@@ -242,6 +242,9 @@ void Bannin::ProcessCommonStateTransition()
 	//番人からプレイヤーに向かうベクトルを計算する。
 	Vector3 diff = m_player->GetPosition() - m_position;
 
+	//移動速度を設定する。
+	m_moveSpeed = diff * 0.50f;
+	
 	//プレイヤーを見つけたら。
 	if (SearchPlayer() == true)
 	{
