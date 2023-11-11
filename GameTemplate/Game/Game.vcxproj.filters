@@ -19,6 +19,7 @@
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="Botan.cpp" />
     <ClCompile Include="Bannin.cpp" />
+    <ClCompile Include="Star.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -32,7 +33,7 @@
     <ClInclude Include="Title.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="Botan.h" />
-    <ClInclude Include="Kemono.h" />
     <ClInclude Include="Bannin.h" />
+    <ClInclude Include="Star.h" />
   </ItemGroup>
 </Project>

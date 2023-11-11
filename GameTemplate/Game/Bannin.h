@@ -70,13 +70,12 @@ public:
 		enAnimationClip_Walk,		//歩きアニメーション。
 		enAnimationClip_Run,        //走りアニメーション。
 		enAnimationClip_Bark,		//吠えるアニメーション。
-		enAnimationClip_Down,		//ダウンアニメーション。
-		enAnimationClip_Winner,		//勝利アニメーション。
 		enAnimationClip_Num,		//アニメーションの数。
 	};
 	void Chase(); //追跡処理
 	void Rotation(); //回転処理。
 	void Collision(); //プレイヤーとの当たり判定
+	//const bool SearchPoint() const;
 	const bool SearchPlayer() const; //プレイヤーを探索する。
 									 //プレイヤーが見つかったらtrue。
 
@@ -92,6 +91,7 @@ public:
 	void PlayAnimation();
 	void ManageState();
 
+	
 	AnimationClip m_animationClips[enAnimationClip_Num];
 	ModelRender m_modelRender;
 	Vector3 m_position; //座標。

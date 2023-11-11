@@ -24,12 +24,8 @@ public:
 
 	void Render(RenderContext& rc);
 
-	//void SetPosition(const Vector3& position)
-	//{
+	
 
-	//}
-
-//private:
 public:
 	LevelRender m_levelRender;
 	Player* player = nullptr;

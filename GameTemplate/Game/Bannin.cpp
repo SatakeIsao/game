@@ -3,9 +3,11 @@
 
 #include "Game.h"
 #include "Player.h"
+#include "GameClear.h"
 
 //ColisionObjectを使用したいため、ファイルをインクルードする。
 #include"collision/CollisionObject.h"
+
 Bannin::Bannin()
 {
 
@@ -24,8 +26,8 @@ bool Bannin::Start()
 	//モデルを読み込む。
 	m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm",m_animationClips,enAnimationClip_Num);
 	//m_modelRender.Init("Assets/modelData/Bannin2.fbm/Skeleton.tkm");
-
 	//m_modelRender.Update();
+	
 	//座標を設定する。
 	Vector3 position = m_position;
 	position.y = 2.5f;
@@ -133,33 +135,27 @@ void Bannin::Collision()
 	//	return;
 	//}
 
-	////番人の吠える用のコリジョン取得する。
-	//const auto& collisions = g_collisionObjectManager->FindCollisionObjects("Bannin_balk");
-	////コリジョンの配列をfor文で回す。
-	//for (auto collision : collisions)
-	//{
-	//	//コリジョンとキャラコンが衝突したら。
-	//	if (collision->IsHit(m_charaCon))
-	//	{
-	//		//HPを1減らす
-	//		m_hp -= 1;
+	//番人の吠える用のコリジョン取得する。
+	const auto& collisions = g_collisionObjectManager->FindCollisionObjects("player_run");
+	//コリジョンの配列をfor文で回す。
+	for (auto collision : collisions)
+	{
+		//コリジョンとキャラコンが衝突したら。
+		if (collision->IsHit(m_charaCon))
+		{
+			
+			//ゲームオーバー
+			NewGO<GameClear>(0, "gameclear");
+			//自身を削除する。
+			DeleteGO(this);
 
-	//		//HPが0より上なら。
-	//		if (m_hp > 0)
-	//		{
-	//			//被ダメージステートに遷移する。
-	//			m_banninState - enBanninState_ReceiveDamage;
-	//		}
-	//		//HPが0なら。
-	//		else if (m_hp == 0)
-	//		{
-	//			//ダウンステートに遷移する。
-	//			m_banninState = enBanninState_Down;
-	//		}
+	
 
-	//		//効果音を再生する。
-	//	}
-	//}
+			//効果音を再生する。
+		}
+	}
+
+
 }
 
 
@@ -187,6 +183,36 @@ void Bannin::Bark()
 	//}
 }
 
+//const bool Bannin::SearchPoint() const
+//{
+	//以下ループ
+
+	////目標とするポイントの座標から現在の座標を引いて、距離ベクトルを求める     
+	//Vector3 diff = m_point->s_poition - m_position;
+	////距離が一定以内なら目的地とするポイントを変える
+	//if (diff.Length() <= 20.0f) {
+
+	//	//今目的地としているポイントが配列の最後の要素なら
+	//  //一番最初のポイントを目的地とする
+	//	if (m_point->s_number == m_poinstList.size()) {
+	//		m_point = m_pointList[0];
+	//	}
+
+	//	//そうでないなら配列の次の要素のポイントを目的地とする
+	//	else {
+	//		m_point = m_pointList[m_point->s_number];
+	//	}
+	//}
+
+	////目標とするポイントの座標から現在の座標を引いて、距離ベクトルを求める 
+	//Vector3 moveSpeed = m_point->s_position - m_position;
+	////正規化する
+	//moveSpeed.Normalize();
+	////適当にスカラーをかける
+	//moveSpeed *= 3.0f;
+	////座標に加算する
+	//m_position += moveSpeed;
+//}
 
 const bool Bannin::SearchPlayer() const
 {

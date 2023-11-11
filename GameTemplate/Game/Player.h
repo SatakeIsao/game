@@ -46,12 +46,13 @@ public:
 	void Move();
 	void PlayAnimation();
 	ModelRender m_modelRender;
-	Vector3 m_position; //座標
-	CharacterController m_charaCon;	//キャラクターコントローラー
-	Vector3 m_moveSpeed; //移動速度
-	Quaternion m_rotation;	//クォータニオン。
-	PointLight m_pointLight; //ポイントライト。
-	int playerState = 0;	//プレイヤーのステート(状態)を表す変数。
+	Vector3 m_position;							 //座標
+	CharacterController m_charaCon;				 //キャラクターコントローラー
+	Vector3 m_moveSpeed;						 //移動速度
+	Quaternion m_rotation;						 //クォータニオン。
+	PointLight m_pointLight;					 //ポイントライト。
+	int playerState = 0;						 //プレイヤーのステート(状態)を表す変数。
+	int starCount = 0;							 //集めた☆の数をカウントする。
 	AnimationClip m_animClips[enAnimationClip_Num];
 	Player* m_player = nullptr;
 };

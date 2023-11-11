@@ -5,21 +5,13 @@
 #include "BackGround.h"
 #include "GameCamera.h"
 #include "Botan.h"
+#include "Star.h"
 #include "GameClear.h"
 #include "sound/SoundEngine.h"
 
 Game::Game()
 {
 	
-		//for (m_timer += g_gameTime->GetFrameDeltaTime(); m_timer <= 60;) {
-
-			//g_timer = m_timer;
-			//m_timer = 0;
-
-			//m_timer += g_gameTime->GetFrameDeltaTime();
-	//	}
-	//m_timer = 00;
-	//g_timer += 1;
 }
 
 Game::~Game()
@@ -62,7 +54,7 @@ bool Game::Start()
 	//	});
 
 	bannin = NewGO<Bannin>(0, "bannin");
-	bannin->m_position = { -600.0f,0.0f,0.0f };
+	bannin->m_position = { -500.0f,0.0f,0.0f };
 	
 
 	//ゲームカメラのオブジェクトを作る。
@@ -75,7 +67,12 @@ bool Game::Start()
 
 	//ボタンのオブジェクトを作る。
 	botan = NewGO<Botan>(0, "botan");
-	botan->m_position = { 600.0f,-20.0f,-200.0f };
+	botan->m_position = { -600.0f,-20.0f,500.0f };
+
+	//Starクラスのオブジェクトを作る。
+	//Star* star1 = NewGO<Star>(0, "star");
+	//star1->m_position = { -400.0f,10.0f,0.0f };
+	//star1->m_firstPosition = star1->m_position;
 
 	//当たり判定を可視化する。
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
@@ -87,6 +84,13 @@ bool Game::Start()
 	gameBGM = NewGO<SoundSource>(1);
 	gameBGM->Init(1);
 	gameBGM->Play(true);
+
+	////パス配置
+	//struct Point {
+	//	Vector3 s_position;
+	//	int     s_number;
+	//};
+
 
 	return true;
 }
@@ -110,9 +114,7 @@ void Game::Update()
 		m_timer = nowTime;	//追加
 		minit++;
 	}
-	//for (m_timer = 0; m_timer <= 60; m_timer++) {
-		//g_timer = m_timer;
-	//}
+
 
 	//表示するテキストを設定。
 	m_fontRender.SetText(wcsbuf);
@@ -123,32 +125,39 @@ void Game::Update()
 	//フォントの色を設定。
 	m_fontRender.SetColor({ 255.0f,0.0f,0.0f,1.0f });
 
-	//for (m_timer += g_gameTime->GetFrameDeltaTime(); m_timer <= 60;) {
-		
-		//g_timer = m_timer;
-		//m_timer = 0;
 
-		//m_timer += g_gameTime->GetFrameDeltaTime();
-	//}
-	//m_timer = 00;
-	//g_timer += 1;
-	//m_timer += g_gameTime->GetFrameDeltaTime();
 	m_timer += g_gameTime->GetFrameDeltaTime(); //1f=1/60秒
 	
-	/*int minit = 0;
-	float nowTime = g_timer;
-	for (; nowTime >= 60.0f ;) {
-		nowTime -= 60.0f;
-		minit++;
-	}*/
+	//bool checkCollision(Player player, Bannin bannin);
+	//{
 
-	Vector3 diff = botan->m_position - player->m_position;
-	if (diff.Length() <= 70.0f)
+	//}
+	//void Game::checkGameClear(Player player, Bannin bannin); {
+	//	if(checkCollision(player,bannin))
+	//}
+
+
+	//Vector3 diff = botan->m_position - player->m_position;
+	//if (diff.Length() <= 70.0f)
+	//{
+	//	NewGO<GameClear>(0, "gameclear");
+	//	
+	//	//自身を削除
+	//	DeleteGO(this);
+	//}
+
+	//☆が全部(5つ)消えたら
+	if (player->starCount == 1)
 	{
+		//ゲームクリアのオブジェクトをつくる。
 		NewGO<GameClear>(0, "gameclear");
-		//自身を削除
+		//自身を削除する。
 		DeleteGO(this);
 	}
+	
+else(player->starCount % 1 == 0);{
+
+}
 	
 }
 

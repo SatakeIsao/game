@@ -16,9 +16,9 @@ bool BackGround::Start()
 	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	//モデルを読み込む。
 	m_modelRender.Init("Assets/modelData/yakata.tkm");
-	//大きさを設定する。
+	//座標を設定する。
 	m_modelRender.SetPosition(m_position);
-	//回転を設定する。
+	//大きさを設定する。
 	m_modelRender.SetScale(m_scale);
 
 	

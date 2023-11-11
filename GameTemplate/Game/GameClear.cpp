@@ -1,11 +1,14 @@
 #include "stdafx.h"
 #include "GameClear.h"
 #include "Title.h"
+#include "Game.h"
 
 GameClear::GameClear()
 {
 	//ゲームクリアの画面を読み込む。
 	m_spriteRender.Init("Assets/sprite/meiroCLEAR.dds", 1920.0f,1080.0f);
+	//ゲームクリアしたタイムを表示。
+	
 }
 
 GameClear::~GameClear()
