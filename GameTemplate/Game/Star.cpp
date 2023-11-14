@@ -52,11 +52,10 @@ void Star::Update()
 	//プレイヤーから☆に向かうベクトルを計算。
 	Vector3 diff = m_player->m_position - m_position;
 	//ベクトルの長さが120.0fより小さかったら。
-	if (diff.Length() <= 120.0f)
+	if (diff.Length() <= 100.0f)
 	{
 		m_player->starCount += 1;
-		//ゲームクリアのオブジェクトを作る。
-		//NewGO<GameClear>(0, "gameclear");
+		
 		//自身を削除する。
 		DeleteGO(this);
 	}

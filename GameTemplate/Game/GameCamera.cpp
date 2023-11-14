@@ -43,7 +43,7 @@ void GameCamera::Update()
 	Vector3 target = m_player->m_position;
 	//注視点 プレイヤーの座標に設定
 	target.y += 30.0f;
-	//target.z += 30.0f;
+	//target.z += 10.0f;
 	
 	//視点を計算する。
 	Vector3 toCameraPosOld = m_player->m_position;

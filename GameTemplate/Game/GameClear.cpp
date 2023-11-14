@@ -24,6 +24,8 @@ void GameClear::Update()
 	{
 		//タイトルのオブジェクトを作成
 		NewGO<Title>(0, "title");
+
+		
 		//自身を削除する。
 		DeleteGO(this);
 	}

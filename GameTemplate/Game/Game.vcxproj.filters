@@ -20,6 +20,7 @@
     <ClCompile Include="Botan.cpp" />
     <ClCompile Include="Bannin.cpp" />
     <ClCompile Include="Star.cpp" />
+    <ClCompile Include="GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -35,5 +36,6 @@
     <ClInclude Include="Botan.h" />
     <ClInclude Include="Bannin.h" />
     <ClInclude Include="Star.h" />
+    <ClInclude Include="GameOver.h" />
   </ItemGroup>
 </Project>

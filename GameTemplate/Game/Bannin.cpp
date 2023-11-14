@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "GameClear.h"
+#include "GameOver.h"
 
 //ColisionObjectを使用したいため、ファイルをインクルードする。
 #include"collision/CollisionObject.h"
@@ -77,6 +78,40 @@ void Bannin::Update()
 
 	//モデルの更新。
 	m_modelRender.Update();
+
+
+	////番人の吠える用のコリジョン取得する。
+	//const auto& collisions = g_collisionObjectManager->FindCollisionObjects("player_run");
+	////コリジョンの配列をfor文で回す。
+	//for (auto collision : collisions)
+	//{
+	//	//コリジョンとキャラコンが衝突したら。
+	//	if (collision->IsHit(m_charaCon))
+	//	{
+
+	//		//ゲームオーバー
+	//		NewGO<GameOver>(0, "gameover");
+	//		//自身を削除する。
+	//		DeleteGO(this);
+
+
+
+	//		//効果音を再生する。
+	//	}
+	//}
+
+
+	////プレイヤーから☆に向かうベクトルを計算。
+	//Vector3 diff = m_player->m_position - m_position;
+	////ベクトルの長さが120.0fより小さかったら。
+	//if (diff.Length() <= 120.0f)
+	//{
+	//	//m_player->starCount += 1;
+	//	//ゲームクリアのオブジェクトを作る。
+	//	NewGO<GameOver>(0, "gameover");
+	//	//自身を削除する。
+	//	DeleteGO(this);
+	//}
 }
 
 void Bannin::Rotation()
@@ -135,25 +170,25 @@ void Bannin::Collision()
 	//	return;
 	//}
 
-	//番人の吠える用のコリジョン取得する。
-	const auto& collisions = g_collisionObjectManager->FindCollisionObjects("player_run");
-	//コリジョンの配列をfor文で回す。
-	for (auto collision : collisions)
-	{
-		//コリジョンとキャラコンが衝突したら。
-		if (collision->IsHit(m_charaCon))
-		{
-			
-			//ゲームオーバー
-			NewGO<GameClear>(0, "gameclear");
-			//自身を削除する。
-			DeleteGO(this);
+	////番人の吠える用のコリジョン取得する。
+	//const auto& collisions = g_collisionObjectManager->FindCollisionObjects("player_run");
+	////コリジョンの配列をfor文で回す。
+	//for (auto collision : collisions)
+	//{
+	//	//コリジョンとキャラコンが衝突したら。
+	//	if (collision->IsHit(m_charaCon))
+	//	{
+	//		
+	//		//ゲームオーバー
+	//		NewGO<GameOver>(0, "gameover");
+	//		//自身を削除する。
+	//		DeleteGO(this);
 
-	
+	//
 
-			//効果音を再生する。
-		}
-	}
+	//		//効果音を再生する。
+	//	}
+	//}
 
 
 }
@@ -163,8 +198,7 @@ void Bannin::Collision()
 void Bannin::Move()
 {
 	
-	//m_position = m_charaCon.Execute(m_moveSpeed, 1.0f / 60.0f); //キャラコン使って
-	//m_modelRender.SetPosition(m_position); //座標を設定。
+
 }
 
 void Bannin::Bark()

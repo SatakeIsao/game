@@ -24,15 +24,15 @@ bool Player::Start()
 
 	//モデルを読み込む。
 	m_modelRender.Init("Assets/modelData/unityChan.tkm",m_animClips,enAnimationClip_Num,enModelUpAxisY);
-	m_modelRender.SetScale(0.3f, 0.3f, 0.3f);
+	m_modelRender.SetScale(0.1f, 0.1f, 0.1f);
 	m_pointLight.Init();
 	m_pointLight.SetPosition(m_position);
 	m_pointLight.SetColor(Vector3(10.0f, 10.0f, 10.0f));
 	m_pointLight.SetAffectPowParam(0.7f);
-	m_pointLight.SetRange(100.0f);
+	m_pointLight.SetRange(100.0f);						//影響範囲
 
 	//キャラクターコントローラーを初期化。
-	m_charaCon.Init(25.0f, 75.0f, m_position);
+	m_charaCon.Init(15.0f, 75.0f, m_position);
 
 	return true;
 }

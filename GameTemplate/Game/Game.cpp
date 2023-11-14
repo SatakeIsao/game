@@ -7,6 +7,7 @@
 #include "Botan.h"
 #include "Star.h"
 #include "GameClear.h"
+#include "GameOver.h"
 #include "sound/SoundEngine.h"
 
 Game::Game()
@@ -26,13 +27,15 @@ Game::~Game()
 	DeleteGO(gameBGM);
 	//背景を削除する。
 	DeleteGO(background);
+	//時間を削除する。
+	//DeleteGO(this);
 }
 
 bool Game::Start()
 {
 	//プレイヤーのオブジェクトを作る。
 	player = NewGO<Player>(0, "player");
-	player->m_position = { -600.0f,0.0f,0.0f };
+	player->m_position = { -650.0f,0.0f,0.0f };
 
 	//番人のオブジェクトを作る。
 	//m_levelRender.Init("Assets/modelData/level.tkl",
@@ -54,7 +57,7 @@ bool Game::Start()
 	//	});
 
 	bannin = NewGO<Bannin>(0, "bannin");
-	bannin->m_position = { -500.0f,0.0f,0.0f };
+	bannin->m_position = { -400.0f,0.0f,0.0f };
 	
 
 	//ゲームカメラのオブジェクトを作る。
@@ -66,16 +69,16 @@ bool Game::Start()
 	//background->m_position = { 0.0f,0.0f,0.0f };
 
 	//ボタンのオブジェクトを作る。
-	botan = NewGO<Botan>(0, "botan");
-	botan->m_position = { -600.0f,-20.0f,500.0f };
+	//botan = NewGO<Botan>(0, "botan");
+	//botan->m_position = { -600.0f,-20.0f,500.0f };
 
 	//Starクラスのオブジェクトを作る。
-	//Star* star1 = NewGO<Star>(0, "star");
-	//star1->m_position = { -400.0f,10.0f,0.0f };
-	//star1->m_firstPosition = star1->m_position;
+	Star* star1 = NewGO<Star>(0, "star");
+	star1->m_position = { -800.0f,10.0f,0.0f };
+	star1->m_firstPosition = star1->m_position;
 
 	//当たり判定を可視化する。
-	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 
 	//ゲーム中のBGMを読み込む。
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/maou_game_dangeon15.wav");
@@ -115,6 +118,8 @@ void Game::Update()
 		minit++;
 	}
 
+	
+
 
 	//表示するテキストを設定。
 	m_fontRender.SetText(wcsbuf);
@@ -128,23 +133,22 @@ void Game::Update()
 
 	m_timer += g_gameTime->GetFrameDeltaTime(); //1f=1/60秒
 	
-	//bool checkCollision(Player player, Bannin bannin);
-	//{
-
-	//}
-	//void Game::checkGameClear(Player player, Bannin bannin); {
-	//	if(checkCollision(player,bannin))
-	//}
 
 
-	//Vector3 diff = botan->m_position - player->m_position;
-	//if (diff.Length() <= 70.0f)
-	//{
-	//	NewGO<GameClear>(0, "gameclear");
-	//	
-	//	//自身を削除
-	//	DeleteGO(this);
-	//}
+	//プレイヤーから番人に向かうベクトルを計算。
+	Vector3 diff = player->m_position - bannin->m_position;
+	//ベクトルの長さが120.0fより小さかったら。
+	if (diff.Length() <= 120.0f)
+	{
+
+		//ゲームオーバーのオブジェクトを作る。
+		NewGO<GameOver>(0, "gameover");
+		//自身を削除する。
+		DeleteGO(this);
+		
+	}
+
+
 
 	//☆が全部(5つ)消えたら
 	if (player->starCount == 1)
@@ -154,10 +158,10 @@ void Game::Update()
 		//自身を削除する。
 		DeleteGO(this);
 	}
-	
-else(player->starCount % 1 == 0);{
 
-}
+
+
+
 	
 }
 

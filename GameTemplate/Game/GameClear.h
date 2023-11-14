@@ -1,4 +1,6 @@
 #pragma once
+class Game;
+
 class GameClear :public IGameObject
 {
 public:
