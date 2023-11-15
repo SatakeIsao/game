@@ -6,6 +6,7 @@ class GameClear :public IGameObject
 public:
 	GameClear();
 	~GameClear();
+
 	//更新処理
 	void Update();
 	//描画処理
@@ -13,5 +14,7 @@ public:
 
 	//メンバ変数。
 	SpriteRender m_spriteRender; //スプライトレンダー
+
+	Game* game = nullptr;
 };
 

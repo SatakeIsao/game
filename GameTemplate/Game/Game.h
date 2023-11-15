@@ -33,6 +33,7 @@ public:
 	GameCamera* m_GameCamera;
 	BackGround* background = nullptr;
 	Botan* botan = nullptr;
+	GameClear* gameclear = nullptr;
 	ModelRender m_modelRender;
 	Vector3 m_position;
 	SoundSource* gameBGM; //ÉQÅ[ÉÄíÜÇÃBGMÅB
@@ -41,7 +42,8 @@ public:
 	float m_timer = 0.0f;
 	float g_timer = 0.0f;
 
-	
+	bool m_isSaveClearTime =false;
+
 	int minit = 0;	//í«â¡
 };
 

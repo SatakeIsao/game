@@ -37,6 +37,9 @@ bool Game::Start()
 	player = NewGO<Player>(0, "player");
 	player->m_position = { -650.0f,0.0f,0.0f };
 
+	//ポイントライトのパラメータを設定する。
+
+
 	//番人のオブジェクトを作る。
 	//m_levelRender.Init("Assets/modelData/level.tkl",
 	//	[&](LevelObjectData& objData)
@@ -107,14 +110,14 @@ void Game::Update()
 {
 	wchar_t wcsbuf[256];
 
-	//int minit = 0;
+	
 	swprintf_s(wcsbuf, 256, L"%02d:%02d", int(minit), int(m_timer));
 	
-	//int minit = 0;
+	
 	float nowTime = m_timer;
 	for (; nowTime >= 60.0f;) {
 		nowTime -= 60.0f;
-		m_timer = nowTime;	//追加
+		m_timer = nowTime;	
 		minit++;
 	}
 
@@ -155,6 +158,18 @@ void Game::Update()
 	{
 		//ゲームクリアのオブジェクトをつくる。
 		NewGO<GameClear>(0, "gameclear");
+		//gameclear->
+
+		swprintf_s(wcsbuf, 256, L"%02d:%02d", int(minit), int(m_timer));
+
+
+
+		if (!m_isSaveClearTime) {
+			int a = 100;
+			m_isSaveClearTime = true;
+		}
+		 
+		
 		//自身を削除する。
 		DeleteGO(this);
 	}

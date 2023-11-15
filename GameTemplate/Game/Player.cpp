@@ -25,6 +25,7 @@ bool Player::Start()
 	//ƒ‚ƒfƒ‹‚ğ“Ç‚İ‚ŞB
 	m_modelRender.Init("Assets/modelData/unityChan.tkm",m_animClips,enAnimationClip_Num,enModelUpAxisY);
 	m_modelRender.SetScale(0.1f, 0.1f, 0.1f);
+
 	m_pointLight.Init();
 	m_pointLight.SetPosition(m_position);
 	m_pointLight.SetColor(Vector3(10.0f, 10.0f, 10.0f));

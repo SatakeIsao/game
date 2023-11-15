@@ -7,8 +7,12 @@ GameClear::GameClear()
 {
 	//ゲームクリアの画面を読み込む。
 	m_spriteRender.Init("Assets/sprite/meiroCLEAR.dds", 1920.0f,1080.0f);
-	//ゲームクリアしたタイムを表示。
+
+
+	//wchar_t wcsbuf[256];
 	
+	//ゲームクリアしたタイムを表示。
+	////swprintf_s(wcsbuf, 256, L"%02d:%02d", int(minit), int(m_timer));
 }
 
 GameClear::~GameClear()
